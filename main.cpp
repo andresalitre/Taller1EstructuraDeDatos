@@ -4,17 +4,19 @@
 #include <string>
 #include <fstream>
 #include "Logica/PatientFactory.h"
-#include "Estructura/List.h"
+#include "Containers/List.h"
 
 using namespace std;
 
 List<Patient> pacientes;
 
-bool leerArchivo(string nombre) {
+bool leerArchivo(string nombre) 
+{
     ifstream Archivo(nombre);
     string linea;
 
-    while (getline(Archivo, linea)) {
+    while (getline(Archivo, linea)) 
+    {
         Patient p = PatientFactory::create(linea);
         pacientes.insertLast(p);
     }
@@ -22,10 +24,25 @@ bool leerArchivo(string nombre) {
     return true;
 }
 
-int main() {
-    leerArchivo("pacientes.txt");
+void menu() 
+    {
+    string opcion = "0";
+    do {
+            cout << "=== HOSPITAL MARMAJA ===\n1. Atender pacientes\n2. Ver departamento\n3. Revisar historial de atencion\n4. Salir\n\nSeleccionar opcion: ";
+            cin >> opcion;
 
-    cout << pacientes.getFirst().getName() << endl;
-    cout << pacientes.getLast().getName() << endl;
+
+            if (opcion == "4") {
+                cout << endl << "Saliendo del programa...\n";
+            }
+
+        } while (opcion != "4");
+    }
+
+
+int main() 
+{
+    leerArchivo("pacientes.txt");
+    menu();
 }
 
