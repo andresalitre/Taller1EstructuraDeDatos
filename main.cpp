@@ -4,19 +4,28 @@
 #include <string>
 #include <fstream>
 #include "Logica/PatientFactory.h"
+#include "Estructura/List.h"
 
 using namespace std;
+
+List<Patient> pacientes;
 
 bool leerArchivo(string nombre) {
     ifstream Archivo(nombre);
     string linea;
+
     while (getline(Archivo, linea)) {
-        Patient paciente = PatientFactory::create(linea);
-        cout << "Creado: " << paciente.getId() << " - " << paciente.getName() << endl;
+        Patient p = PatientFactory::create(linea);
+        pacientes.insertLast(p);
     }
+
     return true;
 }
 
 int main() {
     leerArchivo("pacientes.txt");
+
+    cout << pacientes.getFirst().getName() << endl;
+    cout << pacientes.getLast().getName() << endl;
 }
+

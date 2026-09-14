@@ -9,3 +9,4 @@ class PatientFactory {
 public:
     static Patient create(string line);
 };
+

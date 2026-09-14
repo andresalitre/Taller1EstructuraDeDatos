@@ -1,5 +1,12 @@
 #include "Patient.h"
 
+Patient::Patient() {
+    this->id = "";
+    this->name = "";
+    this->age = 0;
+    this->service = "";
+}
+
 Patient::Patient(string id, string name, int age, string service) {
     this->id = id;
     this->name = name;
