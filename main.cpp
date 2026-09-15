@@ -24,6 +24,35 @@ bool leerArchivo(string nombre)
     return true;
 }
 
+bool comprobarRango(int numero) 
+{
+    if (numero > 0 && numero <= pacientes.size()) 
+    {
+        return true;
+    }
+    return false;
+}
+
+void atender() 
+{
+    string cantidad;
+    cout << "Indique la cantidad de pacientes a atender: ";
+    cin >> cantidad;
+    int numeroAtender = stoi(cantidad);
+    if (comprobarRango(numeroAtender)) 
+    {
+        for (int i = 0; i < numeroAtender; i++) 
+        {
+            
+        }
+    }
+    else 
+    {
+        cout << "\nCantidad de pacientes a atender fuera de rango.\n\n";
+    }
+
+}
+
 void espera()
 {   
     Queue<Patient> temp;
@@ -45,6 +74,16 @@ void espera()
         pacientes.push(temp.front());
         temp.pop();
     }
+    cout << endl;
+    atender();
+}
+
+void departamentos() 
+{
+    cout << "\n=== DEPARTAMENTOS/SERVICIOS ===\n" << endl;
+    cout << "=== DEPARTAMENTOS/SERVICIOS ===\n1. Urgencias\n2. Medicina General\n3. Cardiologia\n4. Neurologia\n5. Traumatologia\n6. Cirugia\n7. Pediatria\n8. Hospitalizacion";
+    cout << "\n\nSeleccionar opcion: ";
+
 }
 
 void menu() 
@@ -62,6 +101,11 @@ void menu()
                     break;
                 } 
                 espera();
+            }
+
+            if (opcion == "2") 
+            {
+                departamentos();
             }
 
 

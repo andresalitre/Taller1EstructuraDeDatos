@@ -97,4 +97,14 @@ public:
             this->start = temp;
         }
     }
+
+    int size() {
+    int count = 0;
+    Node<T>* cursor = this->start;
+    while (cursor != nullptr) {
+        count++;
+        cursor = cursor->getNext();
+    }
+    return count;
+}
 };

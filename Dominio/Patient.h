@@ -21,5 +21,8 @@ public:
     string getName();
     int getAge();
     string getService();
+
+    ~Patient();
     
 };
+

@@ -25,4 +25,8 @@ public:
     void clear() {
         datos.clear();
     }
+
+    int size() {
+        return datos.size();
+    }
 };
