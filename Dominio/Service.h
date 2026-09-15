@@ -17,8 +17,6 @@ class Service
         Service(string name);
 
         string getName();
-        List<Patient> getPatients();
-
         void addPatient(Patient p);
         List<Patient> getPatients();
         int patientsCount();

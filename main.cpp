@@ -5,10 +5,12 @@
 #include <fstream>
 #include "Logica/PatientFactory.h"
 #include "Containers/Queue.h"
+#include "Dominio/Service.h"
 
 using namespace std;
 
 Queue<Patient> pacientes;
+List<Service> servicios;
 
 bool leerArchivo(string nombre) 
 {
@@ -23,6 +25,23 @@ bool leerArchivo(string nombre)
 
     return true;
 }
+
+List<Service> crearServicios() 
+{
+    List<Service> temp;
+
+    temp.insertLast(Service("Urgencias"));
+    temp.insertLast(Service("Medicina General"));
+    temp.insertLast(Service("Cardiologia"));
+    temp.insertLast(Service("Neurologia"));
+    temp.insertLast(Service("Traumatologia"));
+    temp.insertLast(Service("Cirugia"));
+    temp.insertLast(Service("Pediatria"));
+    temp.insertLast(Service("Hospitalizacion"));
+
+    return temp;
+}
+
 
 bool comprobarRango(int numero) 
 {
@@ -119,7 +138,8 @@ void menu()
 
 
 int main() 
-{
+{   
+    servicios = crearServicios();
     leerArchivo("pacientes.txt");
     menu();
 }
