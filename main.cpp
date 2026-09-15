@@ -62,7 +62,17 @@ void atender()
     {
         for (int i = 0; i < numeroAtender; i++) 
         {
-            
+            for (int j = 0; j < servicios.size(); j++) 
+            {
+                Service s = servicios.get(j);
+                Patient p = pacientes.front();
+                if (p.getService() == s.getName()) 
+                {
+                    s.addPatient(p);
+                    pacientes.pop();
+                    break;
+                }
+            }
         }
     }
     else 
