@@ -29,3 +29,5 @@ int Patient::getAge() {
 string Patient::getService() {
     return service;
 }
+
+Patient::~Patient() {}
