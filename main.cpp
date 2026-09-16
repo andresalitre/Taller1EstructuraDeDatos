@@ -138,6 +138,21 @@ void departamentos()
     cout << endl;
 }
 
+void historial() 
+{
+    cout << "\n\n=== HISTORIAL DE ÚLTIMAS ATENCIONES DEL HOSPITAL ===\n" << endl;
+
+    for (int i = 0; i < servicios.size(); i++)
+    {
+        for (int j = 0; j < servicios.get(i).patientsCount(); j++)
+        {
+            Patient p = servicios.get(i).getPatients().get(j);
+            cout << "Nombre: " << p.getName() << " | Edad: " << p.getAge() << " | Departamento: " << servicios.get(i).getName() << endl;
+        }
+    }
+    cout << endl;
+}
+
 void menu() 
     {
     string opcion = "0";
@@ -160,10 +175,14 @@ void menu()
                 departamentos();
             }
 
+            if (opcion == "3")
+            {
+                historial();
+            }
 
             if (opcion == "4") 
             {
-                cout << endl << "Saliendo del programa...\n";
+                cout << endl << "Hasta luego :D.\n";
             }
 
         } while (opcion != "4");
