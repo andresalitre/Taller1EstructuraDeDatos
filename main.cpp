@@ -60,6 +60,7 @@ void atender()
     int numeroAtender = stoi(cantidad);
     if (comprobarRango(numeroAtender)) 
     {
+        cout << "\n=== ATENDIENDO PACIENTES ===" << endl;
         for (int i = 0; i < numeroAtender; i++) 
         {
             for (int j = 0; j < servicios.size(); j++) 
@@ -70,6 +71,8 @@ void atender()
                 {
                     s.addPatient(p);
                     pacientes.pop();
+                    cout << "ID: " << p.getId() << "\nNombre: " << p.getName() << "\nEdad: " << p.getAge() << "\nServicio: " << s.getName() << "\n" << endl;
+                    cout << "Paciente enviado a " << s.getName() << ".\n" << endl;
                     break;
                 }
             }
