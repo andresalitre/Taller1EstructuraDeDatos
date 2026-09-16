@@ -7,11 +7,14 @@
 #include "Containers/Queue.h"
 #include "Dominio/Service.h"
 #include <cctype>
+#include "Containers/Stack.h"
+#include "Dominio/Attention.h"
 
 using namespace std;
 
 Queue<Patient> pacientes;
 List<Service> servicios;
+Stack<Attention> historialPacientes;
 
 string upper(string texto) {
     string resultado = texto;
@@ -81,6 +84,9 @@ void atender()
                     servicios.remove(j);
                     servicios.insert(s, j);
                     pacientes.pop();
+
+                    historialPacientes.push(Attention(p.getName(), p.getAge(), s.getName()));
+
                     cout << "ID: " << p.getId() << "\nNombre: " << p.getName() << "\nEdad: " << p.getAge() << "\nServicio: " << s.getName() << "\n" << endl;
                     cout << "Paciente enviado a " << s.getName() << ".\n" << endl;
                     break;
@@ -142,13 +148,11 @@ void historial()
 {
     cout << "\n\n=== HISTORIAL DE ÚLTIMAS ATENCIONES DEL HOSPITAL ===\n" << endl;
 
-    for (int i = 0; i < servicios.size(); i++)
+    while (!historialPacientes.empty())
     {
-        for (int j = 0; j < servicios.get(i).patientsCount(); j++)
-        {
-            Patient p = servicios.get(i).getPatients().get(j);
-            cout << "Nombre: " << p.getName() << " | Edad: " << p.getAge() << " | Departamento: " << servicios.get(i).getName() << endl;
-        }
+        Attention a = historialPacientes.top();
+        historialPacientes.pop();
+        cout << "Nombre: " << a.getName() << " | Edad: " << a.getAge() << " | Departamento: " << a.getDepartamento() << endl;
     }
     cout << endl;
 }
