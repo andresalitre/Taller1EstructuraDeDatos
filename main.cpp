@@ -6,11 +6,20 @@
 #include "Logica/PatientFactory.h"
 #include "Containers/Queue.h"
 #include "Dominio/Service.h"
+#include <cctype>
 
 using namespace std;
 
 Queue<Patient> pacientes;
 List<Service> servicios;
+
+string upper(string texto) {
+    string resultado = texto;
+    for (int i = 0; i < resultado.length(); i++) {
+        resultado[i] = toupper(resultado[i]);
+    }
+    return resultado;
+}
 
 bool leerArchivo(string nombre) 
 {
@@ -42,7 +51,6 @@ List<Service> crearServicios()
     return temp;
 }
 
-
 bool comprobarRango(int numero) 
 {
     if (numero > 0 && numero <= pacientes.size()) 
@@ -70,6 +78,8 @@ void atender()
                 if (p.getService() == s.getName()) 
                 {
                     s.addPatient(p);
+                    servicios.remove(j);
+                    servicios.insert(s, j);
                     pacientes.pop();
                     cout << "ID: " << p.getId() << "\nNombre: " << p.getName() << "\nEdad: " << p.getAge() << "\nServicio: " << s.getName() << "\n" << endl;
                     cout << "Paciente enviado a " << s.getName() << ".\n" << endl;
@@ -111,11 +121,21 @@ void espera()
 }
 
 void departamentos() 
-{
-    cout << "\n=== DEPARTAMENTOS/SERVICIOS ===\n" << endl;
-    cout << "=== DEPARTAMENTOS/SERVICIOS ===\n1. Urgencias\n2. Medicina General\n3. Cardiologia\n4. Neurologia\n5. Traumatologia\n6. Cirugia\n7. Pediatria\n8. Hospitalizacion";
+{   
+    string opcion;
+    cout << "\n=== DEPARTAMENTOS/SERVICIOS ===\n1. Urgencias\n2. Medicina General\n3. Cardiologia\n4. Neurologia\n5. Traumatologia\n6. Cirugia\n7. Pediatria\n8. Hospitalizacion";
     cout << "\n\nSeleccionar opcion: ";
+    cin >> opcion; cout << endl;
 
+    cout << "=== ESTADO "<< upper(servicios.get(stoi(opcion)-1).getName()) <<" ===" <<endl;
+    cout << "Pacientes en el departamento de " << servicios.get(stoi(opcion)-1).getName() << ": " << servicios.get(stoi(opcion)-1).patientsCount() << endl;
+
+    for (int i = 0; i < servicios.get(stoi(opcion) -1).patientsCount(); i++) 
+    {
+        Patient p = servicios.get(stoi(opcion)-1).getPatients().get(i);
+        cout << p.getName() << "(" << p.getAge() << ")" <<endl;
+    }
+    cout << endl;
 }
 
 void menu() 
@@ -148,7 +168,6 @@ void menu()
 
         } while (opcion != "4");
     }
-
 
 int main() 
 {   
