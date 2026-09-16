@@ -106,5 +106,10 @@ public:
         cursor = cursor->getNext();
     }
     return count;
-}
+
+    }
+
+    ~List() {
+        this->clear();
+    }
 };

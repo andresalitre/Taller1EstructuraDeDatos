@@ -148,12 +148,28 @@ void historial()
 {
     cout << "\n\n=== HISTORIAL DE ÚLTIMAS ATENCIONES DEL HOSPITAL ===\n" << endl;
 
+    if (historialPacientes.empty())
+    {
+        cout << "No hay atenciones registradas todavia.\n" << endl;
+        return;
+    }
+
+    Stack<Attention> temp;
+
     while (!historialPacientes.empty())
     {
         Attention a = historialPacientes.top();
         historialPacientes.pop();
         cout << "Nombre: " << a.getName() << " | Edad: " << a.getAge() << " | Departamento: " << a.getDepartamento() << endl;
+        temp.push(a);
     }
+
+    while (!temp.empty())
+    {
+        historialPacientes.push(temp.top());
+        temp.pop();
+    }
+
     cout << endl;
 }
 
@@ -185,7 +201,10 @@ void menu()
             }
 
             if (opcion == "4") 
-            {
+            {   
+                pacientes.clear();
+                servicios.clear();
+                historialPacientes.clear();
                 cout << endl << "Hasta luego :D.\n";
             }
 
