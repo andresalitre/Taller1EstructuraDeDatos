@@ -14,7 +14,6 @@ private:
     string departamento;
 
     public:
-        Attention();
         Attention(string name, int edad, string departamento);
 
         string getName();
@@ -22,5 +21,5 @@ private:
         string getDepartamento();
 
         ~Attention();
-        
+
 };

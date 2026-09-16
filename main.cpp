@@ -12,9 +12,9 @@
 
 using namespace std;
 
-Queue<Patient> pacientes;
-List<Service> servicios;
-Stack<Attention> historialPacientes;
+Queue<Patient*> pacientes;
+List<Service*> servicios;
+Stack<Attention*> historialPacientes;
 
 string upper(string texto) {
     string resultado = texto;
@@ -31,30 +31,30 @@ bool leerArchivo(string nombre)
 
     while (getline(Archivo, linea)) 
     {
-        Patient p = PatientFactory::create(linea);
+        Patient* p = new Patient(PatientFactory::create(linea));
         pacientes.push(p);
     }
 
     return true;
 }
 
-List<Service> crearServicios() 
+List<Service*> crearServicios() 
 {
-    List<Service> temp;
+    List<Service*> temp;    
 
-    temp.insertLast(Service("Urgencias"));
-    temp.insertLast(Service("Medicina General"));
-    temp.insertLast(Service("Cardiologia"));
-    temp.insertLast(Service("Neurologia"));
-    temp.insertLast(Service("Traumatologia"));
-    temp.insertLast(Service("Cirugia"));
-    temp.insertLast(Service("Pediatria"));
-    temp.insertLast(Service("Hospitalizacion"));
+    temp.insertLast(new Service("Urgencias"));
+    temp.insertLast(new Service("Medicina General"));
+    temp.insertLast(new Service("Cardiologia"));
+    temp.insertLast(new Service("Neurologia"));
+    temp.insertLast(new Service("Traumatologia"));
+    temp.insertLast(new Service("Cirugia"));
+    temp.insertLast(new Service("Pediatria"));
+    temp.insertLast(new Service("Hospitalizacion"));
 
     return temp;
 }
 
-bool comprobarRango(int numero) 
+bool comprobarRango(int numero)     
 {
     if (numero > 0 && numero <= pacientes.size()) 
     {
@@ -76,19 +76,17 @@ void atender()
         {
             for (int j = 0; j < servicios.size(); j++) 
             {
-                Service s = servicios.get(j);
-                Patient p = pacientes.front();
-                if (p.getService() == s.getName()) 
+                Service* s = servicios.get(j);
+                Patient* p = pacientes.front();
+                if (p->getService() == s->getName()) 
                 {
-                    s.addPatient(p);
-                    servicios.remove(j);
-                    servicios.insert(s, j);
+                    s->addPatient(p);
                     pacientes.pop();
 
-                    historialPacientes.push(Attention(p.getName(), p.getAge(), s.getName()));
+                    historialPacientes.push(new Attention(p->getName(), p->getAge(), s->getName()));
 
-                    cout << "ID: " << p.getId() << "\nNombre: " << p.getName() << "\nEdad: " << p.getAge() << "\nServicio: " << s.getName() << "\n" << endl;
-                    cout << "Paciente enviado a " << s.getName() << ".\n" << endl;
+                    cout << "ID: " << p->getId() << "\nNombre: " << p->getName() << "\nEdad: " << p->getAge() << "\nServicio: " << s->getName() << "\n" << endl;
+                    cout << "Paciente enviado a " << s->getName() << ".\n" << endl;
                     break;
                 }
             }
@@ -98,21 +96,20 @@ void atender()
     {
         cout << "\nCantidad de pacientes a atender fuera de rango.\n\n";
     }
-
 }
 
 void espera()
 {   
-    Queue<Patient> temp;
+    Queue<Patient*> temp;
 
     cout << "\n=== PACIENTES EN ESPERA ===\n";
     int i = 1;
     while (!pacientes.empty())
     {
-        Patient p = pacientes.front();
+        Patient* p = pacientes.front();
         pacientes.pop();
 
-        cout << i << ". " << p.getId() << " - " << p.getName() << endl;
+        cout << i << ". " << p->getId() << " - " << p->getName() << endl;
         i++;
 
         temp.push(p);
@@ -133,13 +130,13 @@ void departamentos()
     cout << "\n\nSeleccionar opcion: ";
     cin >> opcion; cout << endl;
 
-    cout << "=== ESTADO "<< upper(servicios.get(stoi(opcion)-1).getName()) <<" ===" <<endl;
-    cout << "Pacientes en el departamento de " << servicios.get(stoi(opcion)-1).getName() << ": " << servicios.get(stoi(opcion)-1).patientsCount() << endl;
+    cout << "=== ESTADO "<< upper(servicios.get(stoi(opcion)-1)->getName()) <<" ===" <<endl;
+    cout << "Pacientes en el departamento de " << servicios.get(stoi(opcion)-1)->getName() << ": " << servicios.get(stoi(opcion)-1)->patientsCount() << endl;
 
-    for (int i = 0; i < servicios.get(stoi(opcion) -1).patientsCount(); i++) 
+    for (int i = 0; i < servicios.get(stoi(opcion) -1)->patientsCount(); i++) 
     {
-        Patient p = servicios.get(stoi(opcion)-1).getPatients().get(i);
-        cout << p.getName() << "(" << p.getAge() << ")" <<endl;
+        Patient* p = servicios.get(stoi(opcion)-1)->getPatients().get(i);
+        cout << p->getName() << "(" << p->getAge() << ")" << endl;
     }
     cout << endl;
 }
@@ -154,13 +151,13 @@ void historial()
         return;
     }
 
-    Stack<Attention> temp;
+    Stack<Attention*> temp;
 
     while (!historialPacientes.empty())
     {
-        Attention a = historialPacientes.top();
+        Attention* a = historialPacientes.top();
         historialPacientes.pop();
-        cout << "Nombre: " << a.getName() << " | Edad: " << a.getAge() << " | Departamento: " << a.getDepartamento() << endl;
+        cout << "Nombre: " << a->getName() << " | Edad: " << a->getAge() << " | Departamento: " << a->getDepartamento() << endl;
         temp.push(a);
     }
 

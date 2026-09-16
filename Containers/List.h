@@ -109,7 +109,4 @@ public:
 
     }
 
-    ~List() {
-        this->clear();
-    }
 };

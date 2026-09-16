@@ -14,7 +14,6 @@ private:
 
 // metodos (getters)
 public:
-    Patient();
     Patient(string id, string name, int age, string service);
 
     string getId();

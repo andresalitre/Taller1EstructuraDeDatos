@@ -10,17 +10,15 @@ class Service
 {
     private:
         string name;
-        List<Patient> patients;     
+        List<Patient*> patients;     
 
     public:
-        Service();
         Service(string name);
 
         string getName();
-        void addPatient(Patient p);
-        List<Patient> getPatients();
+        void addPatient(Patient* p);
+        List<Patient*> getPatients();
         int patientsCount();
 
         ~Service();
-    
 };
