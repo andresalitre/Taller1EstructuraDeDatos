@@ -24,14 +24,39 @@ string upper(string texto) {
     return resultado;
 }
 
+bool servicioValido(string servicio) 
+{
+    for (int i = 0; i < servicios.size(); i++) 
+    {
+        if (servicios.get(i)->getName() == servicio) 
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
 bool leerArchivo(string nombre) 
 {
     ifstream Archivo(nombre);
-    string linea;
 
+    if (!Archivo.is_open()) 
+    {
+        return false;
+    }
+
+    string linea;
     while (getline(Archivo, linea)) 
     {
         Patient* p = new Patient(PatientFactory::create(linea));
+
+        if (!servicioValido(p->getService())) 
+        {
+            cout << "Linea invalida (servicio no reconocido): " << linea << endl;
+            delete p;
+            continue;
+        }
+
         pacientes.push(p);
     }
 
@@ -211,7 +236,12 @@ void menu()
 int main() 
 {   
     servicios = crearServicios();
-    leerArchivo("pacientes.txt");
+
+    if (!leerArchivo("pacientes.txt")) 
+    {
+        cout << "Error: no se pudo abrir el archivo de pacientes.\n";
+        return 1;
+    }
+
     menu();
 }
-

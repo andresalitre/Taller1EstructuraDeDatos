@@ -1,27 +1,18 @@
 #pragma once
 
 #include <string>
+#include "Person.h"
 
 using namespace std;
 
-// constructor
-class Patient {
+class Patient : public Person {
 private:
-    string id;
-    string name;
-    int age;
     string service;
 
-// metodos (getters)
 public:
     Patient(string id, string name, int age, string service);
 
-    string getId();
-    string getName();
-    int getAge();
     string getService();
 
     ~Patient();
-    
 };
-
