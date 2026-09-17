@@ -24,6 +24,34 @@ string upper(string texto) {
     return resultado;
 }
 
+bool pacienteDuplicado(string id) 
+{
+    Queue<Patient*> temp;
+    bool encontrado = false;
+
+    while (!pacientes.empty()) 
+    {
+        Patient* p = pacientes.front();
+        pacientes.pop();
+
+        if (p->getId() == id) 
+        {
+            encontrado = true;
+        }
+
+        temp.push(p);
+    }
+
+    while (!temp.empty()) 
+    {
+        pacientes.push(temp.front());
+        temp.pop();
+    }
+
+    return encontrado;
+}
+
+
 bool servicioValido(string servicio) 
 {
     for (int i = 0; i < servicios.size(); i++) 
@@ -53,6 +81,13 @@ bool leerArchivo(string nombre)
         if (!servicioValido(p->getService())) 
         {
             cout << "Linea invalida (servicio no reconocido): " << linea << endl;
+            delete p;
+            continue;
+        }
+
+        if (pacienteDuplicado(p->getId())) 
+        {
+            cout << "Linea invalida (paciente duplicado): " << linea << endl;
             delete p;
             continue;
         }
