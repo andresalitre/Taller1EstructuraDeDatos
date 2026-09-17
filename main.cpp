@@ -18,9 +18,14 @@ Stack<Attention*> historialPacientes;
 
 string upper(string texto) {
     string resultado = texto;
-    for (int i = 0; i < resultado.length(); i++) {
-        resultado[i] = toupper(resultado[i]);
+    char* cursor = &resultado[0];
+    char* fin = cursor + resultado.length();
+
+    while (cursor < fin) {
+        *cursor = toupper(*cursor);
+        cursor++;
     }
+
     return resultado;
 }
 
@@ -50,7 +55,6 @@ bool pacienteDuplicado(string id)
 
     return encontrado;
 }
-
 
 bool servicioValido(string servicio) 
 {
