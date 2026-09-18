@@ -1,13 +1,8 @@
 #include "Person.h"
 
-Person::Person(string id, string name, int age) {
-    this->id = id;
+Person::Person(string name, int age) {
     this->name = name;
     this->age = age;
-}
-
-string Person::getId() {
-    return id;
 }
 
 string Person::getName() {

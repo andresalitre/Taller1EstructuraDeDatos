@@ -263,9 +263,24 @@ void menu()
 
             if (opcion == "4") 
             {   
-                pacientes.clear();
+                while (!pacientes.empty()) 
+                {
+                    delete pacientes.front();
+                    pacientes.pop();
+                }
+
+                for (int i = 0; i < servicios.size(); i++) 
+                {
+                    delete servicios.get(i);
+                }
                 servicios.clear();
-                historialPacientes.clear();
+
+                while (!historialPacientes.empty()) 
+                {
+                    delete historialPacientes.top();
+                    historialPacientes.pop();
+                }
+
                 cout << endl << "Hasta luego :D.\n";
             }
 

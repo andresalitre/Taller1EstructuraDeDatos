@@ -20,4 +20,11 @@ int Service::patientsCount() {
     return patients.size();
 }
 
-Service::~Service() {}
+Service::~Service() 
+{
+    for (int i = 0; i < patients.size(); i++) 
+    {
+        delete patients.get(i);
+    }
+    patients.clear();
+}
