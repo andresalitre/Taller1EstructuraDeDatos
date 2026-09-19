@@ -1,11 +1,13 @@
 #include "Attention.h"
 
+// Constructor
 Attention::Attention(string name, int edad, string departamento) {
     this->name = name;
     this->edad = edad;
     this->departamento = departamento;
 }
 
+// Getters
 string Attention::getName() {
     return name;
 }
@@ -18,4 +20,5 @@ string Attention::getDepartamento() {
     return departamento;
 }
 
+// Destructor
 Attention::~Attention() {}

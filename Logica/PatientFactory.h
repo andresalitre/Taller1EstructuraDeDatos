@@ -5,7 +5,7 @@
 
 using namespace std;
 
-class PatientFactory {
+class PatientFactory { 
 public:
     static Patient create(string line);
 };

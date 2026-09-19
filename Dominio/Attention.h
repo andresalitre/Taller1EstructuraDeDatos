@@ -8,7 +8,7 @@ using namespace std;
 class Attention 
 {
 
-private:
+private: // Atributos para almacenar la informacion de los pacientes atendidos
     string name;
     int edad;
     string departamento;

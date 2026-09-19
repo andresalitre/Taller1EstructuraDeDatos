@@ -1,10 +1,12 @@
 #include "Service.h"
 
-Service::Service(string name) {
+Service::Service(string name) { // Constructor
     this->name = name;
 }
 
-string Service::getName() {
+
+// Getters
+string Service::getName() { 
     return name;
 }
 
@@ -20,6 +22,7 @@ int Service::patientsCount() {
     return patients.size();
 }
 
+// Destructor
 Service::~Service() 
 {
     for (int i = 0; i < patients.size(); i++) 
